@@ -14,3 +14,27 @@
 void helloWorld() {
     printf("Hello World !");
 }
+
+/**
+ * @brief This function reads the image and prints its dimensions.
+ * @param[in] source_path : path to the image to be read
+ * To try :
+ * ./freud.exe --debug -f ../images/input/image.jpeg -c dimension
+ */ 
+void dimension (char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels;
+
+    printf("source_path: %s\n", source_path);
+
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Check if the image was read successfully
+    if (results != 0) {
+        printf("dimension: %d, %d", width, height);
+    }
+
+    else {
+        printf("Error while reading image data\n");
+    }    
+}
