@@ -20,7 +20,8 @@ void helloWorld() {
  * @param[in] source_path : path to the image to be read
  * To try :
  * ./freud.exe --debug -f ../images/input/image.jpeg -c dimension
- */ 
+ */
+
 void dimension (char *source_path) {
     unsigned char *data;
     int width, height, nbChannels;
@@ -36,11 +37,5 @@ void dimension (char *source_path) {
 
     else {
         printf("Error while reading image data\n");
-    }    
-}
-void dimension(char *source_path){
-    unsigned char *data;
-    int width=0, height=0, channel_count=0; 
-    read_image_data(source_path, &data, &width, &height, &channel_count);
-    printf("dimension : %d, %d",width,height);
+    }
 }
