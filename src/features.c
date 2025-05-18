@@ -53,11 +53,10 @@ void first_pixel (char *source_path) {
     // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
-    printf("data: %p\n", data);
     // Check if the image was read successfully
     if (results != 0) {
         pixel = getPixel(data, width, height, nbChannels, 0, 0);
-        printf("first pixel: %d, %d, %d\n", pixel[0], pixel[1], pixel[2]);
+        printf("first pixel: %d, %d, %d\n", pixel->R, pixel->G, pixel->B);
     }
 
     else {
