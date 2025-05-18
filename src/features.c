@@ -39,13 +39,6 @@ void dimension (char *source_path) {
     }
 }
 
-// This structure is used to store the RGB values of a pixel
-typedef struct _pixelRGB {
-  unsigned char R ;
-  unsigned char G ;
-  unsigned char B ;
-} pixelRGB ;
-
 /**
  * @brief This function reads the image and prints the RGB values of the first pixel.
  * @param[in] source_path : path to the image to be read
@@ -60,17 +53,14 @@ void first_pixel (char *source_path) {
     // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
+    printf("data: %p\n", data);
     // Check if the image was read successfully
     if (results != 0) {
-        pixel = data(0, 0);
-        printf("first pixel: %d, %d, %d", pixel(0), pixel(1), pixel(2));
+        pixel = getPixel(data, width, height, nbChannels, 0, 0);
+        printf("first pixel: %d, %d, %d\n", pixel[0], pixel[1], pixel[2]);
     }
 
     else {
         printf("Error while reading image data\n");
     }
-
-
-
-
 }

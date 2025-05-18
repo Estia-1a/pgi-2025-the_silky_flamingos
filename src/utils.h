@@ -9,11 +9,20 @@
 */
 
 typedef struct _pixelRGB {
-  /*
-   * TO COMPLETE
-   */
-   char R ; 
+  unsigned char R ;
+  unsigned char G ;
+  unsigned char B ; 
 } pixelRGB ;
 
+/**
+ * @brief This function returns the pixel at (x,y) in the image data.
+ * @param[in] data The image data
+ * @param[in] width The width of the image
+ * @param[in] height The height of the image
+ * @param[in] n The number of channels
+ * @param[in] x The x coordinate of the pixel
+ * @param[in] y The y coordinate of the pixel
+ */
+pixelRGB *getPixel( unsigned char* data, const unsigned int width, const unsigned int height, const unsigned int n, const unsigned int x, const unsigned int y );
 
 #endif
