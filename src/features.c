@@ -18,7 +18,7 @@ void helloWorld() {
 /**
  * @brief This function reads the image and prints its dimensions.
  * @param[in] source_path : path to the image to be read
- * To try :
+ * To use :
  * ./freud.exe --debug -f ../images/input/image.jpeg -c dimension
  */
 
@@ -26,8 +26,7 @@ void dimension (char *source_path) {
     unsigned char *data;
     int width, height, nbChannels;
 
-    printf("source_path: %s\n", source_path);
-
+    // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
     // Check if the image was read successfully
@@ -38,4 +37,40 @@ void dimension (char *source_path) {
     else {
         printf("Error while reading image data\n");
     }
+}
+
+// This structure is used to store the RGB values of a pixel
+typedef struct _pixelRGB {
+  unsigned char R ;
+  unsigned char G ;
+  unsigned char B ;
+} pixelRGB ;
+
+/**
+ * @brief This function reads the image and prints the RGB values of the first pixel.
+ * @param[in] source_path : path to the image to be read
+ * To use :
+ * ./freud.exe --debug -f ../images/input/image.jpeg -c first_pixel
+ */
+void first_pixel (char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels;
+    pixelRGB *pixel;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Check if the image was read successfully
+    if (results != 0) {
+        pixel = data(0, 0);
+        printf("first pixel: %d, %d, %d", pixel(0), pixel(1), pixel(2));
+    }
+
+    else {
+        printf("Error while reading image data\n");
+    }
+
+
+
+
 }
