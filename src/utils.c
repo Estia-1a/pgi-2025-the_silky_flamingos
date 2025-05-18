@@ -9,7 +9,12 @@
 
 pixelRGB *getPixel( unsigned char* data, const unsigned int width, const unsigned int height, const unsigned int n, const unsigned int x, const unsigned int y ) {
     pixelRGB *pixel;
-    pixel = data[x, y, n];
+    
+    printf("Pixel choisi (test): %d, %d, %d\n", x, y, n);
+    pixel->R = data[x, y, 0];
+    pixel->G = data[x, y, 1];
+    pixel->B = data[x, y, 2];
+
     return pixel;
 }
 
