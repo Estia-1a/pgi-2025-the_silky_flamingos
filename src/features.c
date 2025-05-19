@@ -71,7 +71,7 @@ void first_pixel (char *source_path) {
  * ./freud.exe -f ./images/input/image.jpeg -c tenth_pixel 
  */
 
- void tenth_pixel (char *source_path) {
+void tenth_pixel (char *source_path) {
     unsigned char *data;
     int width, height, nbChannels;
     pixelRGB *pixel;
@@ -79,7 +79,7 @@ void first_pixel (char *source_path) {
     // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
-    // Check if the imae
+    // Check if the is wide enough to get the tenth pixel
     if (width < 10 ) {
         printf("Image is too small to get the tenth pixel\n");
         return;
@@ -96,4 +96,38 @@ void first_pixel (char *source_path) {
             printf("Error while reading image data\n");
         }
     }
- }
+}
+
+/**
+ * @brief This function reads the image and prints the RGB values of the first pixel of the second line.
+ * @param[in] source_path : path to the image to be read
+ * To use :
+ * ./freud.exe -f ./images/input/image.jpeg -c second_line 
+ */
+
+void second_line (char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels;
+    pixelRGB *pixel;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Check if the image is high enough to get the first pixel of the second line
+    if (height < 2) {
+        printf("Image is too small to get the first pixel of the second line\n");
+        return;
+    }
+
+    else {
+        // Check if the image was read successfully
+        if (results != 0) {
+            pixel = getPixel(data, width, height, nbChannels, 1, 0);
+            printf("first pixel: %d, %d, %d\n", pixel->R, pixel->G, pixel->B);
+        }
+
+        else {
+            printf("Error while reading image data\n");
+        }
+    }
+}

@@ -6,7 +6,7 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "tenth_pixel"
+            "second_line"
         ],
         "cwd": "${workspaceFolder}"
     },
