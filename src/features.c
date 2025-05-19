@@ -76,6 +76,9 @@ void first_pixel (char *source_path) {
     int width, height, nbChannels;
     pixelRGB *pixel;
 
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
     // Check if the imae
     if (width < 10 ) {
         printf("Image is too small to get the tenth pixel\n");
@@ -83,9 +86,6 @@ void first_pixel (char *source_path) {
     }
 
     else {
-        // Read the image data
-        int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
-
         // Check if the image was read successfully
         if (results != 0) {
             pixel = getPixel(data, width, height, nbChannels, 9, 0);
