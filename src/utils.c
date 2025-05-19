@@ -14,7 +14,7 @@ pixelRGB *getPixel( unsigned char* data, const unsigned int width, const unsigne
     int index = (y * width + x) * n;
 
     // Allocate memory for the pixel (using malloc)
-    pixel = malloc(3 * sizeof(unsigned char));
+    pixel = malloc(sizeof(pixelRGB));
 
     pixel->R = data[index];
     pixel->G = data[index + 1];
