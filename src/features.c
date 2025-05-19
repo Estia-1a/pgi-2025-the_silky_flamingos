@@ -63,3 +63,37 @@ void first_pixel (char *source_path) {
         printf("Error while reading image data\n");
     }
 }
+
+/**
+ * @brief This function reads the image and prints the RGB values of the tenth pixel.
+ * @param[in] source_path : path to the image to be read
+ * To use :
+ * ./freud.exe -f ./images/input/image.jpeg -c tenth_pixel 
+ */
+
+ void tenth_pixel (char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels;
+    pixelRGB *pixel;
+
+    // Check if the imae
+    if (width < 10 ) {
+        printf("Image is too small to get the tenth pixel\n");
+        return;
+    }
+
+    else {
+        // Read the image data
+        int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+        // Check if the image was read successfully
+        if (results != 0) {
+            pixel = getPixel(data, width, height, nbChannels, 9, 0);
+            printf("first pixel: %d, %d, %d\n", pixel->R, pixel->G, pixel->B);
+        }
+
+        else {
+            printf("Error while reading image data\n");
+        }
+    }
+ }
