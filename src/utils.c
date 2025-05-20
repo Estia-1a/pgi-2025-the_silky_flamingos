@@ -1,6 +1,7 @@
 #include <estia-image.h>
 
 #include "utils.h"
+
 #include <stdlib.h>
 
 /**

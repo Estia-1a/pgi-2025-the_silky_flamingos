@@ -122,7 +122,7 @@ void second_line (char *source_path) {
     else {
         // Check if the image was read successfully
         if (results != 0) {
-            pixel = getPixel(data, width, height, nbChannels, 1, 0);
+            pixel = getPixel(data, width, height, nbChannels, 0, 1);
             printf("first pixel: %d, %d, %d\n", pixel->R, pixel->G, pixel->B);
         }
 
