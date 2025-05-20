@@ -54,6 +54,11 @@ int main(int argc, char **argv) {
     /* second_line() function is defined in feature.h and implemented in feature.c */
     second_line( configuration.filenames[0] );
   }
+
+  if ( strncmp( configuration.command, "print_pixel", 14 ) == 0 ) {
+    /* print_pixel() function is defined in feature.h and implemented in feature.c */
+    print_pixel( configuration.filenames[0], configuration.arguments[0], configuration.arguments[1] );
+  }
   
   return 0;
 }

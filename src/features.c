@@ -131,3 +131,30 @@ void second_line (char *source_path) {
         }
     }
 }
+
+/**
+ * @brief This function reads the image and prints the RGB values of the pixel at (x,y).
+ * @param[in] source_path : path to the image to be read
+ * @param[in] x : x coordinate of the pixel
+ * @param[in] y : y coordinate of the pixel
+ * To use :
+ * ./freud.exe -f ./images/input/image.jpeg -c print_pixel <X> <Y>
+ */
+void print_pixel(char *source_path, int x, int y) {
+    unsigned char *data;
+    int width, height, nbChannels;
+    pixelRGB *pixel;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Check if the image was read successfully
+    if (results != 0) {
+        pixel = getPixel(data, width, height, nbChannels, x, y);
+        printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
+    }
+
+    else {
+        printf("Error while reading image data\n");
+    }
+}

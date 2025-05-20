@@ -6,7 +6,7 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "second_line"
+            "print_pixel"
         ],
         "cwd": "${workspaceFolder}"
     },
@@ -14,6 +14,7 @@
         "unistd.h": "c",
         "features.h": "c",
         "utils.h": "c",
-        "estia-image.h": "c"
+        "estia-image.h": "c",
+        "argsparse.h": "c"
     },
 }
