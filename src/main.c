@@ -57,7 +57,9 @@ int main(int argc, char **argv) {
 
   if ( strncmp( configuration.command, "print_pixel", 14 ) == 0 ) {
     /* print_pixel() function is defined in feature.h and implemented in feature.c */
-    print_pixel( configuration.filenames[0], configuration.arguments[0], configuration.arguments[1] );
+    int x = atoi(configuration.arguments[0]);
+    int y = atoi(configuration.arguments[1]);
+    print_pixel( configuration.filenames[0], x, y );
   }
   
   return 0;

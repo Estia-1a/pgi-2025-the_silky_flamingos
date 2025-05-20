@@ -17,6 +17,7 @@
         "features.h": "c",
         "utils.h": "c",
         "estia-image.h": "c",
-        "argsparse.h": "c"
+        "argsparse.h": "c",
+        "stdio.h": "c"
     },
 }
