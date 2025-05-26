@@ -36,3 +36,10 @@ void tenth_pixel (char *source_path){
     read_image_data(source_path, &data, &width, &height, &channel_count);
     printf("color: %d, %d, %d", data[27], data[28], data[29]);
 }
+
+void second_line(char *source_path){
+    unsigned char* data =NULL;
+    int width=0, height=0, channel_count=0;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+    printf("second_line: %d, %d, %d", data[4464], data[4465], data[4466]);
+}
