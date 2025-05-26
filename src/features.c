@@ -182,14 +182,13 @@ void max_pixel(char *source_path) {
             for (j = 0; j < height; j++) {
                 pixel = getPixel(data, width, height, nbChannels, i, j);
                 if ((pixel->R + pixel->G + pixel->B) >= (max_pixel->R + max_pixel->G + max_pixel->B)) {
-                    printf("New max pixel found: (%d, %d): %d, %d, %d\n", i, j, pixel->R, pixel->G, pixel->B);
                     max_pixel = pixel;
                     x = i;
                     y = j;
                 }
             }
         }
-        printf("max_pixel (%d, %d): %d, %d, %d", x, y, pixel->R, pixel->G, pixel->B);
+        printf("max_pixel (%d, %d): %d, %d, %d", x, y, max_pixel->R, max_pixel->G, max_pixel->B);
     }
 
     else {
