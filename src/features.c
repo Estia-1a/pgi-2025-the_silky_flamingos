@@ -160,8 +160,7 @@ void print_pixel(char *source_path, int x, int y) {
 }
 
 /**
- * @brief This function reads the image and prints the pixel with the with the largest sum of RGB components in the output terminal.
- * If multiple pixels are equals to the maximum, return the first pixel encountered (i.e. min (x,y)).
+ * @brief This function reads the image and prints the pixel with the with the largest sum of RGB components in the output terminal. If multiple pixels are equals to the maximum, return the first pixel encountered (i.e. min (x,y)).
  * @param[in] source_path : path to the image to be read
  * To use :
  * ./freud.exe -f ./images/input/image.jpeg -c max_pixel
@@ -175,21 +174,21 @@ void max_pixel(char *source_path) {
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
     // Initialize max pixel to the first pixel
-    pixelRGB *max_pixel = getPixel(data, width, height, nbChannels, x, y);
+    pixelRGB *max_Pixel = getPixel(data, width, height, nbChannels, x, y);
 
     // Check if the image was read successfully
     if (results != 0) {
         for (j = 0; j < height; j++) {
             for (i = 0; i < width; i++) {
                 pixel = getPixel(data, width, height, nbChannels, i, j);
-                if ((pixel->R + pixel->G + pixel->B) >= (max_pixel->R + max_pixel->G + max_pixel->B)) {
-                    max_pixel = pixel;
+                if ((pixel->R + pixel->G + pixel->B) >= (max_Pixel->R + max_Pixel->G + max_Pixel->B)) {
+                    max_Pixel = pixel;
                     x = i;
                     y = j;
                 }
             }
         }
-        printf("max_pixel (%d, %d): %d, %d, %d", x, y, max_pixel->R, max_pixel->G, max_pixel->B);
+        printf("max_pixel (%d, %d): %d, %d, %d", x, y, max_Pixel->R, max_Pixel->G, max_Pixel->B);
     }
 
     else {
@@ -198,8 +197,7 @@ void max_pixel(char *source_path) {
 }
 
 /**
- * @brief This function reads the image and prints the pixel with the with the smallest sum of RGB components in the output terminal. 
- * If multiple pixels are equals to the minimum, return the first pixel encountered (i.e. min (x,y)).
+ * @brief This function reads the image and prints the pixel with the with the smallest sum of RGB components in the output terminal. If multiple pixels are equals to the minimum, return the first pixel encountered (i.e. min (x,y)).
  * @param[in] source_path : path to the image to be read
  * To use :
  * ./freud.exe -f ./images/input/image.jpeg -c min_pixel
@@ -213,21 +211,21 @@ void min_pixel(char *source_path) {
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
     // Initialize min pixel to the first pixel
-    pixelRGB *min_pixel = getPixel(data, width, height, nbChannels, x, y);
+    pixelRGB *min_Pixel = getPixel(data, width, height, nbChannels, x, y);
 
     // Check if the image was read successfully
     if (results != 0) {
         for (j = 0; j < height; j++) {
             for (i = 0; i < width; i++) {
                 pixel = getPixel(data, width, height, nbChannels, i, j);
-                if ((pixel->R + pixel->G + pixel->B) < (min_pixel->R + min_pixel->G + min_pixel->B)) {
-                    min_pixel = pixel;
+                if ((pixel->R + pixel->G + pixel->B) < (min_Pixel->R + min_Pixel->G + min_Pixel->B)) {
+                    min_Pixel = pixel;
                     x = i;
                     y = j;
                 }
             }
         }
-        printf("min_pixel (%d, %d): %d, %d, %d", x, y, min_pixel->R, min_pixel->G, min_pixel->B);
+        printf("min_pixel (%d, %d): %d, %d, %d", x, y, min_Pixel->R, min_Pixel->G, min_Pixel->B);
     }
 
     else {
@@ -236,8 +234,7 @@ void min_pixel(char *source_path) {
 }
 
 /**
- * @brief Print the pixel with the maximum R, G, or B value in the output terminal.
- * If multiple pixels are equals to the maximum, return the first pixel encountered (i.e. min (x,y)).
+ * @brief Print the pixel with the maximum R, G, or B value in the output terminal. If multiple pixels are equals to the maximum, return the first pixel encountered (i.e. min (x,y)).
  * @param[in] source_path : path to the image to be read
  * @param[in] component : component to be checked ('R', 'G' or 'B')
  * To use :
@@ -307,8 +304,7 @@ void max_component(char *source_path, char component) {
 }
 
 /**
- * @brief Print the pixel with the minimum R, G, or B value in the output terminal.
- * If multiple pixels are equals to the minimum, return the first pixel encountered (i.e. min (x,y)).
+ * @brief Print the pixel with the minimum R, G, or B value in the output terminal. If multiple pixels are equals to the minimum, return the first pixel encountered (i.e. min (x,y)).
  * @param[in] source_path : path to the image to be read
  * @param[in] component : component to be checked ('R', 'G' or 'B')
  * To use :
@@ -377,17 +373,40 @@ void min_component(char *source_path, char component) {
     }
 }
 
+/**
+ * @brief write in a text file the result of: max_pixel, min_pixel, max_component R, max_component G, max_component B, min_component R, min_component G, min_component B
+ * @param[in] source_path : path to the image to be read
+ * To use :
+ * ./freud.exe -f ./images/input/image.jpeg -c stat_report
+ */
 void stat_report(char *source_path) {
     unsigned char *data;
     int width, height, nbChannels;
+    FILE *report = fopen("stat_report.txt", "w");
 
     // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
     // Check if the image was read successfully
     if (results != 0) {
-
-    } else {
+        max_pixel(source_path);
+        printf("\n");
+        min_pixel(source_path);
+        printf("\n");
+        max_component(source_path, 'R');
+        printf("\n");
+        max_component(source_path, 'G');
+        printf("\n");
+        max_component(source_path, 'B');
+        printf("\n");
+        min_component(source_path, 'R');
+        printf("\n");
+        min_component(source_path, 'G'); 
+        printf("\n");
+        min_component(source_path, 'B');
+    } 
+    
+    else {
         printf("Error while reading image data\n");
     }
 }
