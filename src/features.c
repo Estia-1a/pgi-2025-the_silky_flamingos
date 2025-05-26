@@ -234,3 +234,44 @@ void min_pixel(char *source_path) {
         printf("Error while reading image data\n");
     }
 }
+
+/**
+ * @brief Print the pixel with the maximum R, G, or B value in the output terminal.
+ * If multiple pixels are equals to the maximum, return the first pixel encountered (i.e. min (x,y)).
+ * @param[in] source_path : path to the image to be read
+ * @param[in] component : component to be checked ('R', 'G' or 'B')
+ * To use :
+ * ./freud.exe -f ./images/input/image.jpeg -c max_component <component>
+ */
+void max_component(char *source_path, char component) {
+    unsigned char *data;
+    int width, height, nbChannels, i, j, x = 0, y = 0;
+    pixelRGB *pixel;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Initialize max pixel to the first pixel
+    pixelRGB *max_pixel = getPixel(data, width, height, nbChannels, x, y);
+
+    int max_component = max_pixel->component;
+
+    // Check if the image was read successfully
+    if (results != 0) {
+        for (i = 0; i < width; i++) {
+            for (j = 0; j < height; j++) {
+                pixel = getPixel(data, width, height, nbChannels, i, j);
+                if (max_component >= (max_pixel->R + max_pixel->G + max_pixel->B)) {
+                    max_pixel = pixel;
+                    x = i;
+                    y = j;
+                }
+            }
+        }
+        printf("max_component %d (%d, %d): %d", component, x, y, max_pixel->component);
+    }
+
+    else {
+        printf("Error while reading image data\n");
+    }
+}
