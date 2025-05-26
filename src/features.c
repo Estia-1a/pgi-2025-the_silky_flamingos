@@ -179,8 +179,8 @@ void max_pixel(char *source_path) {
 
     // Check if the image was read successfully
     if (results != 0) {
-        for (i = 0; i < width; i++) {
-            for (j = 0; j < height; j++) {
+        for (j = 0; j < height; j++) {
+            for (i = 0; i < width; i++) {
                 pixel = getPixel(data, width, height, nbChannels, i, j);
                 if ((pixel->R + pixel->G + pixel->B) >= (max_pixel->R + max_pixel->G + max_pixel->B)) {
                     max_pixel = pixel;
@@ -217,8 +217,8 @@ void min_pixel(char *source_path) {
 
     // Check if the image was read successfully
     if (results != 0) {
-        for (i = 0; i < width; i++) {
-            for (j = 0; j < height; j++) {
+        for (j = 0; j < height; j++) {
+            for (i = 0; i < width; i++) {
                 pixel = getPixel(data, width, height, nbChannels, i, j);
                 if ((pixel->R + pixel->G + pixel->B) < (min_pixel->R + min_pixel->G + min_pixel->B)) {
                     min_pixel = pixel;
