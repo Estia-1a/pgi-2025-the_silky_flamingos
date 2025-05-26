@@ -6,7 +6,7 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "max_pixel",
+            "min_pixel",
         ],
         "cwd": "${workspaceFolder}"
     },

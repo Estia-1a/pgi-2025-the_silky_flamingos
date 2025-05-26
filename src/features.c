@@ -195,3 +195,40 @@ void max_pixel(char *source_path) {
         printf("Error while reading image data\n");
     }
 }
+
+/**
+ * @brief This function reads the image and prints the pixel with the with the smallest sum of RGB components in the output terminal.
+ * @param[in] source_path : path to the image to be read
+ * To use :
+ * ./freud.exe -f ./images/input/image.jpeg -c min_pixel
+ */
+void min_pixel(char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels, i, j, x = 0, y = 0;
+    pixelRGB *pixel;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Initialize min pixel to the first pixel
+    pixelRGB *min_pixel = getPixel(data, width, height, nbChannels, x, y);
+
+    // Check if the image was read successfully
+    if (results != 0) {
+        for (i = 0; i < width; i++) {
+            for (j = 0; j < height; j++) {
+                pixel = getPixel(data, width, height, nbChannels, i, j);
+                if ((pixel->R + pixel->G + pixel->B) < (min_pixel->R + min_pixel->G + min_pixel->B)) {
+                    min_pixel = pixel;
+                    x = i;
+                    y = j;
+                }
+            }
+        }
+        printf("min_pixel (%d, %d): %d, %d, %d", x, y, min_pixel->R, min_pixel->G, min_pixel->B);
+    }
+
+    else {
+        printf("Error while reading image data\n");
+    }
+}

@@ -68,6 +68,11 @@ int main(int argc, char **argv) {
     /* max_pixel() function is defined in feature.h and implemented in feature.c */
     max_pixel( configuration.filenames[0] );
   }
+
+  if ( strncmp( configuration.command, "min_pixel", 16 ) == 0 ) {
+    /* min_pixel() function is defined in feature.h and implemented in feature.c */
+    min_pixel();
+  }
   
   return 0;
 }
