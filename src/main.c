@@ -50,11 +50,13 @@ int main(int argc, char **argv) {
     tenth_pixel( configuration.filenames[0] );
   }
 
+  // ./freud.exe -f ./images/input/image.jpeg -c second_line
   if ( strncmp( configuration.command, "second_line", 13 ) == 0 ) {
     /* second_line() function is defined in feature.h and implemented in feature.c */
     second_line( configuration.filenames[0] );
   }
 
+  // ./freud.exe -f ./images/input/image.jpeg -c print_pixel <X> <Y>
   if ( strncmp( configuration.command, "print_pixel", 14 ) == 0 ) {
     /* print_pixel() function is defined in feature.h and implemented in feature.c */
     int x = atoi(configuration.arguments[0]);
