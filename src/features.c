@@ -26,5 +26,5 @@ void first_pixel (char *source_path){
     unsigned char* data=NULL;
     int width=0, height=0, channel_count=0;
     read_image_data(source_path, &data, &width, &height, &channel_count);
-    
+    printf("RGB : %d, %d, %d", data[0], data[1], data[2]);
 }
