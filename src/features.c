@@ -158,3 +158,38 @@ void print_pixel(char *source_path, int x, int y) {
         printf("Error while reading image data\n");
     }
 }
+
+/**
+ * @brief This function reads the image and prints the pixel with the with the largest sum of RGB components in the output terminal.
+ * @param[in] source_path : path to the image to be read
+ * To use :
+ * ./freud.exe -f ./images/input/image.jpeg -c max_pixel
+ */
+void max_pixel(char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels, i, j, x, y;
+    pixelRGB *pixel, *max_pixel = NULL;
+    
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Check if the image was read successfully
+    if (results != 0) {
+        for (i = 0; i < width; i++) {
+            for (j = 0; j < height; j++) {
+                pixel = getPixel(data, width, height, nbChannels, i, j);
+                if ((pixel->R + pixel->G + pixel->B) > (max_pixel->R + max_pixel->G + max_pixel->B)) {
+                    max_pixel = pixel;
+                    x = i;
+                    y = j;
+                }
+            }
+        }
+        printf("max_pixel (%d, %d): %d, %d, %d", x, y, pixel->R, pixel->G, pixel->B); // Placeholder for max pixel value
+    }
+
+    else {
+        printf("Error while reading image data\n");
+    }
+}
