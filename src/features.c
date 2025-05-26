@@ -56,7 +56,7 @@ void first_pixel (char *source_path) {
     // Check if the image was read successfully
     if (results != 0) {
         pixel = getPixel(data, width, height, nbChannels, 0, 0);
-        printf("first pixel: %d, %d, %d", pixel->R, pixel->G, pixel->B);
+        printf("first_pixel: %d, %d, %d", pixel->R, pixel->G, pixel->B);
     }
 
     else {
@@ -89,7 +89,7 @@ void tenth_pixel (char *source_path) {
         // Check if the image was read successfully
         if (results != 0) {
             pixel = getPixel(data, width, height, nbChannels, 9, 0);
-            printf("first pixel: %d, %d, %d", pixel->R, pixel->G, pixel->B);
+            printf("tenth_pixel: %d, %d, %d", pixel->R, pixel->G, pixel->B);
         }
 
         else {
@@ -123,7 +123,7 @@ void second_line (char *source_path) {
         // Check if the image was read successfully
         if (results != 0) {
             pixel = getPixel(data, width, height, nbChannels, 0, 1);
-            printf("first pixel: %d, %d, %d", pixel->R, pixel->G, pixel->B);
+            printf("second_line_first_pixel: %d, %d, %d", pixel->R, pixel->G, pixel->B);
         }
 
         else {
