@@ -8,7 +8,7 @@
             "-c",
             "max_component",
             "-a",
-            "R"
+            "G"
         ],
         "cwd": "${workspaceFolder}"
     },

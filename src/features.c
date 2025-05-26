@@ -254,21 +254,52 @@ void max_component(char *source_path, char component) {
     // Initialize max pixel to the first pixel
     pixelRGB *max_pixel = getPixel(data, width, height, nbChannels, x, y);
 
-    int max_component = max_pixel->component;
-
     // Check if the image was read successfully
     if (results != 0) {
-        for (i = 0; i < width; i++) {
+        if (component == 'R') {
             for (j = 0; j < height; j++) {
-                pixel = getPixel(data, width, height, nbChannels, i, j);
-                if (max_component >= (max_pixel->R + max_pixel->G + max_pixel->B)) {
-                    max_pixel = pixel;
-                    x = i;
-                    y = j;
+                for (i = 0; i < width; i++) {
+                    pixel = getPixel(data, width, height, nbChannels, i, j);
+                    if (pixel->R > max_pixel->R) {
+                        printf("max_component R (%d, %d): %d\n", x, y, max_pixel->R);
+                        max_pixel = pixel;
+                        x = i;
+                        y = j;
+                    }
                 }
             }
+            printf("max_component R (%d, %d): %d", x, y, max_pixel->R);
         }
-        printf("max_component %d (%d, %d): %d", component, x, y, max_pixel->component);
+        else if (component == 'G') {
+            for (j = 0; j < height; j++) {
+                for (i = 0; i < width; i++) {
+                    pixel = getPixel(data, width, height, nbChannels, i, j);
+                    if (pixel->G > max_pixel->G) {
+                        max_pixel = pixel;
+                        x = i;
+                        y = j;
+                    }
+                }
+            }
+            printf("max_component G (%d, %d): %d", x, y, max_pixel->G);
+        }
+        else if (component == 'B') {
+            for (j = 0; j < height; j++) {
+                for (i = 0; i < width; i++) {
+                    pixel = getPixel(data, width, height, nbChannels, i, j);
+                    if (pixel->B > max_pixel->B) {
+                        max_pixel = pixel;
+                        x = i;
+                        y = j;
+                    }
+                }
+            }
+            printf("max_component B (%d, %d): %d", x, y, max_pixel->B);
+        }
+        else {
+            printf("Invalid component. Use 'R', 'G' or 'B'.\n");
+            return;
+        }
     }
 
     else {
