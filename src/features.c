@@ -382,27 +382,28 @@ void min_component(char *source_path, char component) {
 void stat_report(char *source_path) {
     unsigned char *data;
     int width, height, nbChannels;
-    FILE *report = fopen("stat_report.txt", "w");
 
     // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
     // Check if the image was read successfully
     if (results != 0) {
+        fopen("stat_report.txt", "w");
+        freopen("stat_report.txt", "w", stdout);
         max_pixel(source_path);
-        printf("\n");
+        printf("\n\n");
         min_pixel(source_path);
-        printf("\n");
+        printf("\n\n");
         max_component(source_path, 'R');
-        printf("\n");
+        printf("\n\n");
         max_component(source_path, 'G');
-        printf("\n");
+        printf("\n\n");
         max_component(source_path, 'B');
-        printf("\n");
+        printf("\n\n");
         min_component(source_path, 'R');
-        printf("\n");
+        printf("\n\n");
         min_component(source_path, 'G'); 
-        printf("\n");
+        printf("\n\n");
         min_component(source_path, 'B');
     } 
     
