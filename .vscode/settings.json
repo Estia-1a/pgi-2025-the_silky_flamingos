@@ -6,9 +6,7 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "min_component",
-            "-a",
-            "B"
+            "stat_report",
         ],
         "cwd": "${workspaceFolder}"
     },

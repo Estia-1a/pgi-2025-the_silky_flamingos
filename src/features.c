@@ -376,3 +376,18 @@ void min_component(char *source_path, char component) {
         printf("Error while reading image data\n");
     }
 }
+
+void stat_report(char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Check if the image was read successfully
+    if (results != 0) {
+
+    } else {
+        printf("Error while reading image data\n");
+    }
+}

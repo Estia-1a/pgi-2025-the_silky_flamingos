@@ -22,5 +22,7 @@ void max_component(char *source_path, char component);
 
 void min_component(char *source_path, char component);
 
+void stat_report(char *source_path);
+
 #endif
 
