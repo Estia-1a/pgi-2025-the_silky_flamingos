@@ -167,26 +167,29 @@ void print_pixel(char *source_path, int x, int y) {
  */
 void max_pixel(char *source_path) {
     unsigned char *data;
-    int width, height, nbChannels, i, j, x, y;
-    pixelRGB *pixel, *max_pixel = NULL;
-    
+    int width, height, nbChannels, i, j, x = 0, y = 0;
+    pixelRGB *pixel;
 
     // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Initialize max pixel to the first pixel
+    pixelRGB *max_pixel = getPixel(data, width, height, nbChannels, x, y);
 
     // Check if the image was read successfully
     if (results != 0) {
         for (i = 0; i < width; i++) {
             for (j = 0; j < height; j++) {
                 pixel = getPixel(data, width, height, nbChannels, i, j);
-                if ((pixel->R + pixel->G + pixel->B) > (max_pixel->R + max_pixel->G + max_pixel->B)) {
+                if ((pixel->R + pixel->G + pixel->B) >= (max_pixel->R + max_pixel->G + max_pixel->B)) {
+                    printf("New max pixel found: (%d, %d): %d, %d, %d\n", i, j, pixel->R, pixel->G, pixel->B);
                     max_pixel = pixel;
                     x = i;
                     y = j;
                 }
             }
         }
-        printf("max_pixel (%d, %d): %d, %d, %d", x, y, pixel->R, pixel->G, pixel->B); // Placeholder for max pixel value
+        printf("max_pixel (%d, %d): %d, %d, %d", x, y, pixel->R, pixel->G, pixel->B);
     }
 
     else {
