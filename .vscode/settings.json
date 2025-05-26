@@ -6,9 +6,9 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "max_component",
+            "min_component",
             "-a",
-            "G"
+            "B"
         ],
         "cwd": "${workspaceFolder}"
     },

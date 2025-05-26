@@ -78,5 +78,11 @@ int main(int argc, char **argv) {
     /* max_component() function is defined in feature.h and implemented in feature.c */
     max_component( configuration.filenames[0], *configuration.arguments[0]);
   }
+
+  if ( strncmp( configuration.command, "min_component", 18 ) == 0 ) {
+    /* min_component() function is defined in feature.h and implemented in feature.c */
+    min_component( configuration.filenames[0], *configuration.arguments[0]);
+  }
+  
   return 0;
 }

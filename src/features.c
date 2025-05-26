@@ -261,7 +261,6 @@ void max_component(char *source_path, char component) {
                 for (i = 0; i < width; i++) {
                     pixel = getPixel(data, width, height, nbChannels, i, j);
                     if (pixel->R > max_pixel->R) {
-                        printf("max_component R (%d, %d): %d\n", x, y, max_pixel->R);
                         max_pixel = pixel;
                         x = i;
                         y = j;
@@ -295,6 +294,77 @@ void max_component(char *source_path, char component) {
                 }
             }
             printf("max_component B (%d, %d): %d", x, y, max_pixel->B);
+        }
+        else {
+            printf("Invalid component. Use 'R', 'G' or 'B'.\n");
+            return;
+        }
+    }
+
+    else {
+        printf("Error while reading image data\n");
+    }
+}
+
+/**
+ * @brief Print the pixel with the minimum R, G, or B value in the output terminal.
+ * If multiple pixels are equals to the minimum, return the first pixel encountered (i.e. min (x,y)).
+ * @param[in] source_path : path to the image to be read
+ * @param[in] component : component to be checked ('R', 'G' or 'B')
+ * To use :
+ * ./freud.exe -f ./images/input/image.jpeg -c min_component <component>
+ */
+void min_component(char *source_path, char component) {
+    unsigned char *data;
+    int width, height, nbChannels, i, j, x = 0, y = 0;
+    pixelRGB *pixel;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Initialize max pixel to the first pixel
+    pixelRGB *min_pixel = getPixel(data, width, height, nbChannels, x, y);
+
+    // Check if the image was read successfully
+    if (results != 0) {
+        if (component == 'R') {
+            for (j = 0; j < height; j++) {
+                for (i = 0; i < width; i++) {
+                    pixel = getPixel(data, width, height, nbChannels, i, j);
+                    if (pixel->R < min_pixel->R) {
+                        min_pixel = pixel;
+                        x = i;
+                        y = j;
+                    }
+                }
+            }
+            printf("min_component R (%d, %d): %d", x, y, min_pixel->R);
+        }
+        else if (component == 'G') {
+            for (j = 0; j < height; j++) {
+                for (i = 0; i < width; i++) {
+                    pixel = getPixel(data, width, height, nbChannels, i, j);
+                    if (pixel->G < min_pixel->G) {
+                        min_pixel = pixel;
+                        x = i;
+                        y = j;
+                    }
+                }
+            }
+            printf("min_component G (%d, %d): %d", x, y, min_pixel->G);
+        }
+        else if (component == 'B') {
+            for (j = 0; j < height; j++) {
+                for (i = 0; i < width; i++) {
+                    pixel = getPixel(data, width, height, nbChannels, i, j);
+                    if (pixel->B < min_pixel->B) {
+                        min_pixel = pixel;
+                        x = i;
+                        y = j;
+                    }
+                }
+            }
+            printf("min_component B (%d, %d): %d", x, y, min_pixel->B);
         }
         else {
             printf("Invalid component. Use 'R', 'G' or 'B'.\n");
