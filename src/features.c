@@ -161,6 +161,7 @@ void print_pixel(char *source_path, int x, int y) {
 
 /**
  * @brief This function reads the image and prints the pixel with the with the largest sum of RGB components in the output terminal.
+ * If multiple pixels are equals to the maximum, return the first pixel encountered (i.e. min (x,y)).
  * @param[in] source_path : path to the image to be read
  * To use :
  * ./freud.exe -f ./images/input/image.jpeg -c max_pixel
@@ -197,7 +198,8 @@ void max_pixel(char *source_path) {
 }
 
 /**
- * @brief This function reads the image and prints the pixel with the with the smallest sum of RGB components in the output terminal.
+ * @brief This function reads the image and prints the pixel with the with the smallest sum of RGB components in the output terminal. 
+ * If multiple pixels are equals to the minimum, return the first pixel encountered (i.e. min (x,y)).
  * @param[in] source_path : path to the image to be read
  * To use :
  * ./freud.exe -f ./images/input/image.jpeg -c min_pixel
