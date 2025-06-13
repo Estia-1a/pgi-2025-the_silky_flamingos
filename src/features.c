@@ -64,3 +64,26 @@ void rotate_cw(char *source_path) {
 }
 
 
+void rotate_acw(char *source_path) {
+    unsigned char* data = NULL;
+    int width = 0, height = 0, channel_count = 0;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+
+    int new_width = height;
+    int new_height = width;
+    unsigned char* rotated_data = malloc(new_width * new_height * channel_count);
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            for (int c = 0; c < channel_count; ++c) {
+                rotated_data[((new_height - x - 1) * new_width + y) * channel_count + c] =
+                    data[(y * width + x) * channel_count + c];
+            }
+        }
+    }
+    write_image_data("image_out.bmp", rotated_data, new_width, new_height, channel_count);
+
+    free(data);
+    free(rotated_data);
+}
+
+
