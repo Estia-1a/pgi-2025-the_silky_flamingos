@@ -411,3 +411,7 @@ void stat_report(char *source_path) {
         printf("Error while reading image data\n");
     }
 }
+
+void stat_report(char *source_path) {
+    
+}
