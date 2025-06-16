@@ -24,5 +24,7 @@ void min_component(char *source_path, char component);
 
 void stat_report(char *source_path);
 
+void color_red(char *source_path);
+
 #endif
 
