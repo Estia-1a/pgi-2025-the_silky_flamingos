@@ -413,5 +413,20 @@ void stat_report(char *source_path) {
 }
 
 void stat_report(char *source_path) {
+    unsigned char *data, *newData;
+    int width, height, nbChannels;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+
+    // Check if the image was read successfully
+    if (results != 0) {
+
+
+        int write_image_data(source_path, newdata, width, height);
+    }
     
+    else {
+        printf("Error while reading image data\n");
+    }
 }
