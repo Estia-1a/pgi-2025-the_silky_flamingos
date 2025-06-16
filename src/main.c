@@ -45,46 +45,46 @@ int main(int argc, char **argv) {
   }
 
   // ./freud.exe -f ./images/input/image.jpeg -c tenth_pixel
-  if ( strncmp( configuration.command, "tenth_pixel", 12 ) == 0 ) {
+  if ( strncmp( configuration.command, "tenth_pixel", 11 ) == 0 ) {
     /* tenth_pixel() function is defined in feature.h and implemented in feature.c */
     tenth_pixel( configuration.filenames[0] );
   }
 
   // ./freud.exe -f ./images/input/image.jpeg -c second_line
-  if ( strncmp( configuration.command, "second_line", 13 ) == 0 ) {
+  if ( strncmp( configuration.command, "second_line", 11 ) == 0 ) {
     /* second_line() function is defined in feature.h and implemented in feature.c */
     second_line( configuration.filenames[0] );
   }
 
   // ./freud.exe -f ./images/input/image.jpeg -c print_pixel <X> <Y>
-  if ( strncmp( configuration.command, "print_pixel", 14 ) == 0 ) {
+  if ( strncmp( configuration.command, "print_pixel", 11 ) == 0 ) {
     /* print_pixel() function is defined in feature.h and implemented in feature.c */
     int x = atoi(configuration.arguments[0]);
     int y = atoi(configuration.arguments[1]);
     print_pixel( configuration.filenames[0], x, y );
   }
 
-  if ( strncmp( configuration.command, "max_pixel", 15 ) == 0 ) {
+  if ( strncmp( configuration.command, "max_pixel", 9 ) == 0 ) {
     /* max_pixel() function is defined in feature.h and implemented in feature.c */
     max_pixel( configuration.filenames[0] );
   }
 
-  if ( strncmp( configuration.command, "min_pixel", 16 ) == 0 ) {
+  if ( strncmp( configuration.command, "min_pixel", 9 ) == 0 ) {
     /* min_pixel() function is defined in feature.h and implemented in feature.c */
     min_pixel( configuration.filenames[0] );
   }
   
-  if ( strncmp( configuration.command, "max_component", 17 ) == 0 ) {
+  if ( strncmp( configuration.command, "max_component", 13 ) == 0 ) {
     /* max_component() function is defined in feature.h and implemented in feature.c */
     max_component( configuration.filenames[0], *configuration.arguments[0]);
   }
 
-  if ( strncmp( configuration.command, "min_component", 18 ) == 0 ) {
+  if ( strncmp( configuration.command, "min_component", 13 ) == 0 ) {
     /* min_component() function is defined in feature.h and implemented in feature.c */
     min_component( configuration.filenames[0], *configuration.arguments[0]);
   }
 
-  if ( strncmp( configuration.command, "stat_report", 19 ) == 0 ) {
+  if ( strncmp( configuration.command, "stat_report", 11 ) == 0 ) {
     /* stat_report() function is defined in feature.h and implemented in feature.c */
     stat_report( configuration.filenames[0] );
   }
