@@ -6,7 +6,7 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "color_grey"
+            "invert"
         ],
         "cwd": "${workspaceFolder}"
     },
@@ -16,6 +16,8 @@
         "utils.h": "c",
         "estia-image.h": "c",
         "argsparse.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "type_traits": "c",
+        "xtr1common": "c"
     },
 }

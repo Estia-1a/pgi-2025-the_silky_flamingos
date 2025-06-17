@@ -575,3 +575,43 @@ void color_grey(char *source_path) {
         printf("Error while reading image data\n");
     }
 }
+
+void invert(char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels, i, j;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+    // Check if the image was read successfully
+    if (results != 0) {
+
+        // Allocating memory for the new image data
+        unsigned char *newData = malloc(width * height * nbChannels * sizeof(unsigned char));
+
+        // Creating the new image datas (pixel's channel by pixel's channel)
+        for (j = 0; j < height; j++) {
+            for (i = 0; i < width; i++) {
+                // Old datas (pixel by pixel)
+                pixelRGB *old_pixel = getPixel(data, width, height, nbChannels, i, j);
+
+                // New datas (channel by channel)
+                newData[(j * width + i) * nbChannels] = 255 - old_pixel->R;
+                newData[(j * width + i) * nbChannels + 1] = 255 - old_pixel->G;
+                newData[(j * width + i) * nbChannels + 2] = 255 - old_pixel->B;
+                }
+            }
+
+        int write_result = write_image_data("image_out.bmp", newData, width, height);
+        
+        // Check write result
+        if (write_result != 0) { 
+            printf("Upload reussi ! \n");
+        } else {
+            printf("Error writing image\n");
+        }
+    }
+    
+    else {  
+        printf("Error while reading image data\n");
+    }
+}
