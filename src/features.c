@@ -1,6 +1,7 @@
 #include <estia-image.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "features.h"
 #include "utils.h"
@@ -659,3 +660,61 @@ void color_gray_luminance(char *source_path) {
     }
 }
 
+void color_desaturate(char *source_path) {
+    unsigned char *data;
+    int width, height, nbChannels, i, j, minChannel, maxChannel;
+
+    // Read the image data
+    int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
+    // Check if the image was read successfully
+    if (results != 0) {
+
+        // Allocating memory for the new image data
+        unsigned char *newData = malloc(width * height * nbChannels * sizeof(unsigned char));
+
+        // Creating the new image datas (pixel's channel by pixel's channel)
+        for (j = 0; j < height; j++) {
+            for (i = 0; i < width; i++) {
+                // Old datas (pixel by pixel)
+                pixelRGB *old_pixel = getPixel(data, width, height, nbChannels, i, j);
+
+                // Searching the minimum channel
+                if ( old_pixel->R < old_pixel->G ) {
+                    minChannel = fmin(old_pixel->R, old_pixel->B);
+                }
+                else {
+                    minChannel = fmin(old_pixel->G, old_pixel->B);
+                }
+
+                // Searching the maximum channel
+                if ( old_pixel->R < old_pixel->G ) {
+                    maxChannel = fmax(old_pixel->G, old_pixel->B);
+                }
+                else {
+                    maxChannel = fmax(old_pixel->R, old_pixel->B);
+                }
+                
+                // Computing the average value of min and max
+                unsigned char value = (maxChannel + minChannel) / 2;
+
+                // New datas (channel by channel)
+                newData[(j * width + i) * nbChannels] = value;
+                newData[(j * width + i) * nbChannels + 1] = value;
+                newData[(j * width + i) * nbChannels + 2] = value;
+                }
+            }
+
+        int write_result = write_image_data("image_out.bmp", newData, width, height);
+        
+        // Check write result
+        if (write_result != 0) { 
+            printf("Upload reussi ! \n");
+        } else {
+            printf("Error writing image\n");
+        }
+    }
+    
+    else {  
+        printf("Error while reading image data\n");
+    }
+}
