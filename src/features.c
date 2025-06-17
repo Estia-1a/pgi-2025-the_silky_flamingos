@@ -1,6 +1,7 @@
 #include <estia-image.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "features.h"
 #include "utils.h"
@@ -659,9 +660,9 @@ void color_gray_luminance(char *source_path) {
     }
 }
 
-void color_des(char *source_path) {
+void color_desaturate(char *source_path) {
     unsigned char *data;
-    int width, height, nbChannels, i, j;
+    int width, height, nbChannels, i, j, minChannel, maxChannel;
 
     // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
@@ -676,9 +677,25 @@ void color_des(char *source_path) {
             for (i = 0; i < width; i++) {
                 // Old datas (pixel by pixel)
                 pixelRGB *old_pixel = getPixel(data, width, height, nbChannels, i, j);
+
+                // Searching the minimum channel
+                if ( old_pixel->R < old_pixel->G ) {
+                    minChannel = fmin(old_pixel->R, old_pixel->B);
+                }
+                else {
+                    minChannel = fmin(old_pixel->G, old_pixel->B);
+                }
+
+                // Searching the maximum channel
+                if ( old_pixel->R < old_pixel->G ) {
+                    maxChannel = fmax(old_pixel->G, old_pixel->B);
+                }
+                else {
+                    maxChannel = fmax(old_pixel->R, old_pixel->B);
+                }
                 
-                // Computing the average value of each pixel
-                unsigned char value = (min(old_pixel->R, old_pixel->G, old_pixel->B) + max(old_pixel->R, old_pixel->G, old_pixel->B)) / 2;
+                // Computing the average value of min and max
+                unsigned char value = (maxChannel + minChannel) / 2;
 
                 // New datas (channel by channel)
                 newData[(j * width + i) * nbChannels] = value;
