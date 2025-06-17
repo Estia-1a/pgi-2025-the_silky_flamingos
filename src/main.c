@@ -109,5 +109,10 @@ int main(int argc, char **argv) {
     color_grey( configuration.filenames[0] );
   }
 
+  if ( strncmp( configuration.command, "invert", 6 ) == 0 ) {
+    /* invert() function is defined in feature.h and implemented in feature.c */
+    invert( configuration.filenames[0] );
+  }
+
   return 0;
 }
