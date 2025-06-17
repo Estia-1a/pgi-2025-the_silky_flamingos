@@ -104,5 +104,10 @@ int main(int argc, char **argv) {
     color_blue( configuration.filenames[0] );
   }
 
+  if ( strncmp( configuration.command, "color_grey", 10 ) == 0 ) {
+    /* color_grey() function is defined in feature.h and implemented in feature.c */
+    color_grey( configuration.filenames[0] );
+  }
+
   return 0;
 }
