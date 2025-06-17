@@ -36,5 +36,7 @@ void invert(char *source_path);
 
 void color_gray_luminance(char *source_path);
 
+void color_desaturate(char *source_path);
+
 #endif
 

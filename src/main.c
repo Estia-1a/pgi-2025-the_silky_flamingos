@@ -119,5 +119,11 @@ int main(int argc, char **argv) {
     color_gray_luminance( configuration.filenames[0] );
   }  
 
+  if ( strncmp( configuration.command, "color_desaturate", 16 ) == 0 ) {
+    /* color_desaturate() function is defined in feature.h and implemented in feature.c */
+    color_desaturate( configuration.filenames[0] );
+  }  
+
+  
   return 0;
 }
