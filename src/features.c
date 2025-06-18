@@ -117,3 +117,48 @@ void mirror_horizontal(char *source_path) {
 }
 
 
+#include <stdlib.h>
+#include "utils.h"
+#include "estia-image.h"
+
+void mirror_vertical(char* source_path) {
+    unsigned char* data = NULL;
+    int width = 0, height = 0, n = 0;
+
+    if (read_image_data(source_path, &data, &width, &height, &n) == 0) {
+        // Échec lecture, on quitte proprement
+        return;
+    }
+
+    // Allocation pour la nouvelle image (mêmes dimensions)
+    unsigned char* new_data = malloc(width * height * n);
+    if (!new_data) {
+        free_image_data(data);
+        return;
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            // On récupère le pixel source
+            pixelRGB* p = getPixel(data, width, height, n, x, y);
+
+            // Position miroir vertical : on inverse l'axe y
+            int new_x = x;
+            int new_y = height - 1 - y;
+
+            // On écrit dans la nouvelle image
+            setPixel(new_data, width, height, n, new_x, new_y, p);
+
+            free(p);
+        }
+    }
+
+    // Écriture de l'image résultat (note : write_image_data prend 4 paramètres)
+    write_image_data("image_out.bmp", new_data, width, height);
+
+    free_image_data(data);
+    free(new_data);
+}
+
+
+
