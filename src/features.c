@@ -40,30 +40,30 @@ void tenth_pixel (char *source_path){
 
 void rotate_cw(char *source_path) {
     unsigned char* data = NULL;
-    int width = 0, height = 0, channel_count = 0;
+    int width = 0, height = 0, n = 0;
 
-    read_image_data(source_path, &data, &width, &height, &channel_count);
+    read_image_data(source_path, &data, &width, &height, &n);
 
-    int new_width = height;
-    int new_height = width;
-    unsigned char* rotated_data = malloc(new_width * new_height * channel_count);
+    // Nouvelle image : dimensions inversées
+    unsigned char* new_data = malloc(width * height * n);
 
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            for (int c = 0; c < channel_count; ++c) {
-                rotated_data[(x * new_width + (new_width - y - 1)) * channel_count + c] =
-                    data[(y * width + x) * channel_count + c];
-            }
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            pixelRGB* p = getPixel(data, width, height, n, x, y);
+            int new_x = height - 1 - y;
+            int new_y = x;
+            setPixel(new_data, height, width, n, new_x, new_y, p);
+            free(p);
         }
     }
 
-    write_image_data("image_out.bmp", rotated_data, new_width, new_height, channel_count);
-
+    write_image_data("image_out.bmp", new_data, height, width, n);
     free(data);
-    free(rotated_data);
+    free(new_data);
 }
 
 
+/*
 void rotate_acw(char *source_path) {
     unsigned char* data = NULL;
     int width = 0, height = 0, channel_count = 0;
@@ -85,5 +85,7 @@ void rotate_acw(char *source_path) {
     free(data);
     free(rotated_data);
 }
+*/
+
 
 
