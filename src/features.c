@@ -44,23 +44,27 @@ void rotate_cw(char *source_path) {
 
     read_image_data(source_path, &data, &width, &height, &n);
 
-    // Nouvelle image : dimensions inversées
-    unsigned char* new_data = malloc(width * height * n);
+    int new_width = height;
+    int new_height = width;
+    unsigned char* new_data = malloc(new_width * new_height * n);
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             pixelRGB* p = getPixel(data, width, height, n, x, y);
             int new_x = height - 1 - y;
             int new_y = x;
-            setPixel(new_data, height, width, n, new_x, new_y, p);
+            setPixel(new_data, new_width, new_height, n, new_x, new_y, p);
             free(p);
         }
     }
 
-    write_image_data("image_out.bmp", new_data, height, width, n);
+    write_image_data("image_out.bmp", new_data, new_width, new_height);
+
+
     free(data);
     free(new_data);
 }
+
 
 
 /*
