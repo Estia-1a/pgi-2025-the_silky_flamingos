@@ -71,11 +71,13 @@ void rotate_cw(char *source_path) {
 void rotate_acw(char *source_path) {
     unsigned char* data = NULL;
     int width = 0, height = 0, channel_count = 0;
+    
     read_image_data(source_path, &data, &width, &height, &channel_count);
 
     int new_width = height;
     int new_height = width;
     unsigned char* rotated_data = malloc(new_width * new_height * channel_count);
+   
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             for (int c = 0; c < channel_count; ++c) {
@@ -96,30 +98,37 @@ void mirror_horizontal(char *source_path) {
     unsigned char* data = NULL;
     int width = 0, height = 0, n = 0;
 
-    read_image_data(source_path, &data, &width, &height, &n);
+    if (read_image_data(source_path, &data, &width, &height, &n) == 0) {
+        // Échec lecture, on quitte proprement
+        return;
+    }
 
-    unsigned char* new_data = malloc(width * height * n);
+    int new_width = width;
+    int new_height = height;
+    unsigned char* new_data = malloc(new_width * new_height * n);
+    if (!new_data) {
+        free_image_data(data);
+        return;
+    }
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             pixelRGB* p = getPixel(data, width, height, n, x, y);
-            int mirror_x = width - 1 - x;
+            int mirror_x = new_width - 1 - x;
             int mirror_y = y;
-            setPixel(new_data, width, height, n, mirror_x, mirror_y, p);
+            setPixel(new_data, new_width, new_height, n, mirror_x, mirror_y, p);
             free(p);
         }
     }
 
-    write_image_data("image_out.bmp", new_data, width, height);
+    write_image_data("image_out.bmp", new_data, new_width, new_height);
 
     free_image_data(data);
     free(new_data);
 }
 
 
-#include <stdlib.h>
-#include "utils.h"
-#include "estia-image.h"
+
 
 void mirror_vertical(char* source_path) {
     unsigned char* data = NULL;
@@ -161,10 +170,6 @@ void mirror_vertical(char* source_path) {
 }
 
 
-
-#include <stdlib.h>
-#include "utils.h"
-#include "estia-image.h"
 
 void mirror_total(char* source_path) {
     unsigned char* data = NULL;
