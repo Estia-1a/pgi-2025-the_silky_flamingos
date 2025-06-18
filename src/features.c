@@ -67,7 +67,7 @@ void rotate_cw(char *source_path) {
 
 
 
-/*
+
 void rotate_acw(char *source_path) {
     unsigned char* data = NULL;
     int width = 0, height = 0, channel_count = 0;
@@ -89,7 +89,7 @@ void rotate_acw(char *source_path) {
     free(data);
     free(rotated_data);
 }
-*/
+
 
 
 
