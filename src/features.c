@@ -84,7 +84,7 @@ void rotate_acw(char *source_path) {
             }
         }
     }
-    write_image_data("image_out.bmp", rotated_data, new_width, new_height, channel_count);
+    write_image_data("image_out.bmp", rotated_data, new_width, new_height);
 
     free(data);
     free(rotated_data);
