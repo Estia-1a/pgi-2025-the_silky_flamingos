@@ -92,4 +92,28 @@ void rotate_acw(char *source_path) {
 
 
 
+void mirror_horizontal(char *source_path) {
+    unsigned char* data = NULL;
+    int width = 0, height = 0, n = 0;
+
+    read_image_data(source_path, &data, &width, &height, &n);
+
+    unsigned char* new_data = malloc(width * height * n);
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            pixelRGB* p = getPixel(data, width, height, n, x, y);
+            int mirror_x = width - 1 - x;
+            int mirror_y = y;
+            setPixel(new_data, width, height, n, mirror_x, mirror_y, p);
+            free(p);
+        }
+    }
+
+    write_image_data("image_out.bmp", new_data, width, height);
+
+    free_image_data(data);
+    free(new_data);
+}
+
 
