@@ -1,0 +1,7 @@
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c: In function ‘stat_report’:
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:393:9: warning: ignoring return value of ‘fopen’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  393 |         fopen("stat_report.txt", "w");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:394:9: warning: ignoring return value of ‘freopen’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  394 |         freopen("stat_report.txt", "w", stdout);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
