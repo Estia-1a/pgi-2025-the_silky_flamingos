@@ -67,5 +67,5 @@ void scale_crop(const char* in, const char* out, int cx, int cy, int w, int h){
     stbi_write_png(out, w, h, c, crop, w * c);
     stbi_image_free(img);
     free(crop);
-    
+    printf("input.jpg", "output.png", 500, 600, 300, 400);
 }
