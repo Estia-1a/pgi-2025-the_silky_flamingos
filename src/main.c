@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     second_line(configuration.filenames[0]);
 }
  if ( strncmp( configuration.command, "scale_crop", 10 ) == 0 ) {
-    /* second_line() function is defined in feature.h and implemented in feature.c */
+    /* scale_crop() function is defined in feature.h and implemented in feature.c */
     second_line(configuration.filenames[0]);
 }
 
