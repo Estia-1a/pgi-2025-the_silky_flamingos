@@ -713,3 +713,161 @@ void color_desaturate(char *source_path) {
         printf("Error while reading image data\n");
     }
 }
+
+void rotate_cw(char *source_path) {
+    unsigned char* data = NULL;
+    int width = 0, height = 0, n = 0;
+
+    read_image_data(source_path, &data, &width, &height, &n);
+
+    int new_width = height;
+    int new_height = width;
+    unsigned char* new_data = malloc(new_width * new_height * n);
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            pixelRGB* p = getPixel(data, width, height, n, x, y);
+            int new_x = height - 1 - y;
+            int new_y = x;
+            setPixel(new_data, new_width, new_height, n, new_x, new_y, p);
+            free(p);
+        }
+    }
+
+    write_image_data("image_out.bmp", new_data, new_width, new_height);
+
+
+    free(data);
+    free(new_data);
+}
+
+void rotate_acw(char *source_path) {
+    unsigned char* data = NULL;
+    int width = 0, height = 0, channel_count = 0;
+    
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+
+    int new_width = height;
+    int new_height = width;
+    unsigned char* rotated_data = malloc(new_width * new_height * channel_count);
+   
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            for (int c = 0; c < channel_count; ++c) {
+                rotated_data[((new_height - x - 1) * new_width + y) * channel_count + c] =
+                    data[(y * width + x) * channel_count + c];
+            }
+        }
+    }
+    write_image_data("image_out.bmp", rotated_data, new_width, new_height);
+
+    free(data);
+    free(rotated_data);
+}
+
+void mirror_horizontal(char *source_path) {
+    unsigned char* data = NULL;
+    int width = 0, height = 0, n = 0;
+
+    if (read_image_data(source_path, &data, &width, &height, &n) == 0) {
+        
+        return;
+    }
+
+    int new_width = width;
+    int new_height = height;
+    unsigned char* new_data = malloc(new_width * new_height * n);
+    if (!new_data) {
+        free_image_data(data);
+        return;
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            pixelRGB* p = getPixel(data, width, height, n, x, y);
+            int mirror_x = new_width - 1 - x;
+            int mirror_y = y;
+            setPixel(new_data, new_width, new_height, n, mirror_x, mirror_y, p);
+            free(p);
+        }
+    }
+
+    write_image_data("image_out.bmp", new_data, new_width, new_height);
+
+    free_image_data(data);
+    free(new_data);
+}
+
+void mirror_vertical(char* source_path) {
+    unsigned char* data = NULL;
+    int width = 0, height = 0, n = 0;
+
+    if (read_image_data(source_path, &data, &width, &height, &n) == 0) {
+        
+        return;
+    }
+
+    
+    unsigned char* new_data = malloc(width * height * n);
+    if (!new_data) {
+        free_image_data(data);
+        return;
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            
+            pixelRGB* p = getPixel(data, width, height, n, x, y);
+
+            
+            int new_x = x;
+            int new_y = height - 1 - y;
+
+            
+            setPixel(new_data, width, height, n, new_x, new_y, p);
+
+            free(p);
+        }
+    }
+
+    
+    write_image_data("image_out.bmp", new_data, width, height);
+
+    free_image_data(data);
+    free(new_data);
+}
+
+void mirror_total(char* source_path) {
+    unsigned char* data = NULL;
+    int width = 0, height = 0, n = 0;
+
+    if (read_image_data(source_path, &data, &width, &height, &n) == 0) {
+        
+        return;
+    }
+
+    unsigned char* new_data = malloc(width * height * n);
+    if (!new_data) {
+        free_image_data(data);
+        return;
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            pixelRGB* p = getPixel(data, width, height, n, x, y);
+
+            
+            int new_x = width - 1 - x;
+            int new_y = height - 1 - y;
+
+            setPixel(new_data, width, height, n, new_x, new_y, p);
+
+            free(p);
+        }
+    }
+
+    write_image_data("image_out.bmp", new_data, width, height);
+
+    free_image_data(data);
+    free(new_data);
+}

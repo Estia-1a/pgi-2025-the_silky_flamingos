@@ -1,5 +1,5 @@
 #include <estia-image.h>
-
+#include <stdlib.h>
 #include "utils.h"
 
 #include <stdlib.h>
@@ -22,20 +22,14 @@ pixelRGB *getPixel( unsigned char* data, const unsigned int width, const unsigne
     }
 
     else {
-    /*         // Convert the data 2D coordinates to 1D and thus, to "channel" coordinates
-        int index = (y * width + x) * n;
-
-        // Allocate memory for the pixel (using malloc)
-        pixel = malloc(sizeof(pixelRGB));
-
-        pixel->R = data[index];
-        pixel->G = data[index + 1];
-        pixel->B = data[index + 2];
-
-        return pixel; */
         return (pixelRGB *) (data + (y * width + x) * n);
     }
 
 }
 
-
+void setPixel(unsigned char* data, const unsigned int width, const unsigned int height, const unsigned int n, const unsigned int x, const unsigned int y, pixelRGB* pixel) {
+    int index = (y * width + x) * n;
+    data[index] = pixel->R;
+    data[index + 1] = pixel->G;
+    data[index + 2] = pixel->B;
+}
