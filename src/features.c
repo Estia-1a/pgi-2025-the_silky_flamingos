@@ -68,6 +68,11 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
             current_data_cropped_pixel->B=current_original_pixel->B;
         }
     }
-    write_image_data("image_out.bmp",cropped_data,width,height);
-    system("start image_out.bmp");
+    const char *output_file = "image_out.png";
+    if (!write_image_data(output_file, cropped_data, width, height)) {
+        fprintf(stderr, "Erreur lors de la sauvegarde de l'image : %s\n", output_file);
+    } else {
+        printf("Image recadrée sauvegardée : %s\n", output_file);
+        system("start image_out.png");  
+   
 }
