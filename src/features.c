@@ -178,7 +178,7 @@ void max_pixel(char *source_path) {
         for (j = 0; j < height; j++) {
             for (i = 0; i < width; i++) {
                 pixel = getPixel(data, width, height, nbChannels, i, j);
-                if ((pixel->R + pixel->G + pixel->B) >= (max_Pixel->R + max_Pixel->G + max_Pixel->B)) {
+                if ((pixel->R + pixel->G + pixel->B) > (max_Pixel->R + max_Pixel->G + max_Pixel->B)) {
                     max_Pixel = pixel;
                     x = i;
                     y = j;
