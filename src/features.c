@@ -45,8 +45,9 @@ void second_line(char *source_path){
 }
 
 void scale_crop(const char* in, const char* out, int cx, int cy, int w, int h){
-    int iw, ih, c;
-    unsigned char* img = stbi_load(in, &iw, &ih, &c, 0);
+    unsigned char* data =NULL;
+    int w,h,c;
+    unsigned char* img=read_image_data(in, &data, &w, &h, &c);
     if (!img){
         printf("Erreur : Impossible de charger l'image '%s'\n", in);
         return;
@@ -69,8 +70,8 @@ void scale_crop(const char* in, const char* out, int cx, int cy, int w, int h){
             }   
         }   
     }    
-    stbi_write_png(out, w, h, c, crop, w * c);
-    stbi_image_free(img);
+    write_image_data(out, &data, &w, &h);
+    free_image_data(img);
     free(crop);
     printf("Image d'entrée : %s\n", in);
     printf("Image de sortie : %s\n", out);
