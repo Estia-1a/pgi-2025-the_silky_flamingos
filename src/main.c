@@ -104,14 +104,14 @@ int main(int argc, char **argv) {
     color_blue( configuration.filenames[0] );
   }
 
-  if ( strncmp( configuration.command, "color_grey", 10 ) == 0 ) {
-    /* color_grey() function is defined in feature.h and implemented in feature.c */
-    color_grey( configuration.filenames[0] );
+  if ( strncmp( configuration.command, "color_gray", 10 ) == 0 ) {
+    /* color_gray() function is defined in feature.h and implemented in feature.c */
+    color_gray( configuration.filenames[0] );
   }
 
-  if ( strncmp( configuration.command, "invert", 6 ) == 0 ) {
-    /* invert() function is defined in feature.h and implemented in feature.c */
-    invert( configuration.filenames[0] );
+  if ( strncmp( configuration.command, "color_invert", 6 ) == 0 ) {
+    /* color_invert() function is defined in feature.h and implemented in feature.c */
+    color_invert( configuration.filenames[0] );
   }
 
   if ( strncmp( configuration.command, "color_gray_luminance", 20 ) == 0 ) {

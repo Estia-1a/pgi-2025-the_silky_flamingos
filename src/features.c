@@ -12,7 +12,6 @@
  * Your commit messages must contain "#n" with: n = number of the corresponding feature issue.
  * When the feature is totally implemented, your commit message must contain "close #n".
  */
-
 void helloWorld() {
     printf("Hello World !!");
 }
@@ -23,7 +22,6 @@ void helloWorld() {
  * To use :
  * ./freud.exe --debug -f ../images/input/image.jpeg -c dimension
  */
-
 void dimension (char *source_path) {
     unsigned char *data;
     int width, height, nbChannels;
@@ -72,7 +70,6 @@ void first_pixel (char *source_path) {
  * To use :
  * ./freud.exe -f ./images/input/image.jpeg -c tenth_pixel 
  */
-
 void tenth_pixel (char *source_path) {
     unsigned char *data;
     int width, height, nbChannels;
@@ -81,21 +78,20 @@ void tenth_pixel (char *source_path) {
     // Read the image data
     int results = read_image_data(source_path, &data, &width, &height, &nbChannels);
 
-    // Check if the is wide enough to get the tenth pixel
-    if (width < 10 ) {
-        printf("Image is too small to get the tenth pixel\n");
-        return;
+    // Check if the image was read successfully
+    if (results == 0) {
+        printf("Error while reading image data\n");
     }
 
     else {
-        // Check if the image was read successfully
-        if (results != 0) {
+        // Check if the is wide enough to get the tenth pixel
+        if (width >= 10) {
             pixel = getPixel(data, width, height, nbChannels, 9, 0);
             printf("tenth_pixel: %d, %d, %d", pixel->R, pixel->G, pixel->B);
         }
 
         else {
-            printf("Error while reading image data\n");
+            printf("Image is too small to get the tenth pixel\n");
         }
     }
 }
@@ -106,7 +102,6 @@ void tenth_pixel (char *source_path) {
  * To use :
  * ./freud.exe -f ./images/input/image.jpeg -c second_line 
  */
-
 void second_line (char *source_path) {
     unsigned char *data;
     int width, height, nbChannels;
@@ -125,7 +120,7 @@ void second_line (char *source_path) {
         // Check if the image was read successfully
         if (results != 0) {
             pixel = getPixel(data, width, height, nbChannels, 0, 1);
-            printf("second_line_first_pixel: %d, %d, %d", pixel->R, pixel->G, pixel->B);
+            printf("second_line: %d, %d, %d", pixel->R, pixel->G, pixel->B);
         }
 
         else {
@@ -534,7 +529,7 @@ void color_blue(char *source_path) {
     }
 }
 
-void color_grey(char *source_path) {
+void color_gray(char *source_path) {
     unsigned char *data;
     int width, height, nbChannels, i, j;
 
@@ -577,7 +572,7 @@ void color_grey(char *source_path) {
     }
 }
 
-void invert(char *source_path) {
+void color_invert(char *source_path) {
     unsigned char *data;
     int width, height, nbChannels, i, j;
 

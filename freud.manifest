@@ -13,6 +13,6 @@ color_red
 color_green
 color_blue
 color_gray
-invert
+color_invert
 color_gray_luminance
 color_desaturate
