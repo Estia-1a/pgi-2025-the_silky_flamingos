@@ -43,3 +43,29 @@ void second_line(char *source_path){
     read_image_data(source_path, &data, &width, &height, &channel_count);
     printf("second_line: %d, %d, %d", data[4464], data[4465], data[4466]);
 }
+
+void scale_crop(const char* in, const char* out, int cx, int cy, int w, int h){
+    int iw, ih, c;
+    unsigned char* img = stbi_load(in, &iw, &ih, &c, 0);
+    if (!img) return;
+
+    unsigned char* crop = malloc(w * h * c);
+    int sx = cx - w / 2, sy = cy - h / 2;
+
+    for (int y = 0; y < h; y++){
+        for (int x = 0; x < w; x++){
+            for (int i = 0; i < c; i++) {
+                int xi = sx + x, yi = sy + y;
+                int d = (y * w + x) * c + i;
+                if (xi >= 0 && xi < iw && yi >= 0 && yi < ih)
+                    crop[d] = img[(yi * iw + xi) * c + i];
+                else
+                    crop[d] = 0;
+            }   
+        }   
+    }    
+    stbi_write_png(out, w, h, c, crop, w * c);
+    stbi_image_free(img);
+    free(crop);
+    
+}
