@@ -44,12 +44,14 @@ void second_line(char *source_path){
     printf("second_line: %d, %d, %d", data[4464], data[4465], data[4466]);
 }
 
-void scale_crop(const char* in, const char* out, int cx, int cy, int cw, int ch){
+void scale_crop(const char* in, int cx, int cy, int cw, int ch){
+    
+    const char* out ="output.png";
     unsigned char* data = NULL;
     int iw = 0, ih = 0, c = 0;
 
-    data = read_image_data(in, &data, &iw, &ih, &c);
-    if (!data) {
+    int success = read_image_data(in, &data, &iw, &ih, &c);
+    if (!success) {
         printf("Erreur : Impossible de charger l'image '%s'\n", in);
         return;
     }
@@ -75,13 +77,17 @@ void scale_crop(const char* in, const char* out, int cx, int cy, int cw, int ch)
                     int src_index = (yi * iw + xi) * c + i;
                     crop[dst_index] = data[src_index];
                 } else {
-                    crop[dst_index] = 0; 
+                    crop[dst_index] = 0;
                 }
             }
         }
     }
 
-    write_image_data(out, crop, cw, ch, c); 
+    success = write_image_data(out, crop, cw, ch);
+    if (!success) {
+        printf("Erreur : Impossible d'écrire l'image '%s'\n", out);
+    }
+
     free_image_data(data);
     free(crop);
 
