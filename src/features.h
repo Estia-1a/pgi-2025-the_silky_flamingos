@@ -12,5 +12,5 @@ void tenth_pixel (char *source_path);
 
 void second_line(char *source_path);
 
-void scale_crop(const char* in, int cx, int cy, int w, int h)
+void scale_crop(char *source_path, int center_x, int center_y, int width, int height);
 #endif
