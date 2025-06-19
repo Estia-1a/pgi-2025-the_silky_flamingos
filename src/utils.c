@@ -7,22 +7,20 @@
  * 
  */
 
-pixelRGB* get_pixel(const unsigned char* data, int width, int height, int n, int x, int y) {
-    if (data==NULL|| x<0 || y<0 || x>=width || y>= height || n<3){
-        return NULL;
+pixelRGB *getPixel( unsigned char* data, const unsigned int width, const unsigned int height, const unsigned int n, const unsigned int x, const unsigned int y) {
+
+    // Check if the pixel coordonates are in the image
+    if (x >= width || y >= height) {
+        return NULL; 
     }
     
-    int index = (y * width + x) * channels;
-
-    pixelRGB* pixel = malloc(sizeof(pixelRGB));
-    if (pixel==NULL){
+    // Check if there is no data
+    else if (data == NULL) {
         return NULL;
     }
 
-    pixel->R = data[index];
-    pixel->G = data[index + 1];
-    pixel->B = data[index + 2];
-
-    return pixel;
+    else {
+        return (pixelRGB *) (data + (y * width + x) * n);
+    }
 
 }
