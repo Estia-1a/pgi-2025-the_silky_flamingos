@@ -53,7 +53,13 @@ int main(int argc, char **argv) {
 }
  if ( strncmp( configuration.command, "scale_crop", 10 ) == 0 ) {
     /* scale_crop() function is defined in feature.h and implemented in feature.c */
-    scale_crop(configuration.filenames[0]);
+    const char* in = configuration.filenames[0];
+    int cx = atoi(configuration.filenames[1]);
+    int cy = atoi(configuration.filenames[2]);
+    int cw = atoi(configuration.filenames[3]);
+    int ch = atoi(configuration.filenames[4]);
+
+    scale_crop(in, cx, cy, cw, ch);
 }
 
   /*
