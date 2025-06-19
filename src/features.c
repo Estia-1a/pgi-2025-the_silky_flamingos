@@ -47,7 +47,12 @@ void second_line(char *source_path){
 void scale_crop(const char* in, const char* out, int cx, int cy, int w, int h){
     int iw, ih, c;
     unsigned char* img = stbi_load(in, &iw, &ih, &c, 0);
-    if (!img) return;
+    if (!img){
+        printf("Erreur : Impossible de charger l'image '%s'\n", in);
+        return;
+    } 
+        
+        
 
     unsigned char* crop = malloc(w * h * c);
     int sx = cx - w / 2, sy = cy - h / 2;
