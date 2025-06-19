@@ -44,35 +44,47 @@ void second_line(char *source_path){
     printf("second_line: %d, %d, %d", data[4464], data[4465], data[4466]);
 }
 
-void scale_crop(const char* in, const char* out, int cx, int cy, int w, int h){
-    unsigned char* data =NULL;
-    int w,h,c;
-    unsigned char* img=read_image_data(in, &data, &w, &h, &c);
-    if (!img){
+void scale_crop(const char* in, const char* out, int cx, int cy, int cw, int ch){
+    unsigned char* data = NULL;
+    int iw = 0, ih = 0, c = 0;
+
+    data = read_image_data(in, &data, &iw, &ih, &c);
+    if (!data) {
         printf("Erreur : Impossible de charger l'image '%s'\n", in);
         return;
-    } 
-        
-        
+    }
 
-    unsigned char* crop = malloc(w * h * c);
-    int sx = cx - w / 2, sy = cy - h / 2;
+    unsigned char* crop = malloc(cw * ch * c);
+    if (!crop) {
+        printf("Erreur : Échec de l'allocation mémoire pour le crop\n");
+        free_image_data(data);
+        return;
+    }
 
-    for (int y = 0; y < h; y++){
-        for (int x = 0; x < w; x++){
+    int sx = cx - cw / 2;
+    int sy = cy - ch / 2;
+
+    for (int y = 0; y < ch; y++) {
+        for (int x = 0; x < cw; x++) {
             for (int i = 0; i < c; i++) {
-                int xi = sx + x, yi = sy + y;
-                int d = (y * w + x) * c + i;
-                if (xi >= 0 && xi < iw && yi >= 0 && yi < ih)
-                    crop[d] = img[(yi * iw + xi) * c + i];
-                else
-                    crop[d] = 0;
-            }   
-        }   
-    }    
-    write_image_data(out, &data, &w, &h);
-    free_image_data(img);
+                int xi = sx + x;
+                int yi = sy + y;
+                int dst_index = (y * cw + x) * c + i;
+
+                if (xi >= 0 && xi < iw && yi >= 0 && yi < ih) {
+                    int src_index = (yi * iw + xi) * c + i;
+                    crop[dst_index] = data[src_index];
+                } else {
+                    crop[dst_index] = 0; 
+                }
+            }
+        }
+    }
+
+    write_image_data(out, crop, cw, ch, c); 
+    free_image_data(data);
     free(crop);
+
     printf("Image d'entrée : %s\n", in);
-    printf("Image de sortie : %s\n", out);
+    printf("Image de sortie (crop) : %s\n", out);
 }
