@@ -800,74 +800,33 @@ void mirror_horizontal(char *source_path) {
 
 void mirror_vertical(char* source_path) {
     unsigned char* data = NULL;
-    int width = 0, height = 0, n = 0;
-
-    if (read_image_data(source_path, &data, &width, &height, &n) == 0) {
-        
-        return;
-    }
-
-    
-    unsigned char* new_data = malloc(width * height * n);
-    if (!new_data) {
-        free_image_data(data);
-        return;
-    }
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            
-            pixelRGB* p = getPixel(data, width, height, n, x, y);
-
-            
-            int new_x = x;
-            int new_y = height - 1 - y;
-
-            
-            setPixel(new_data, width, height, n, new_x, new_y, p);
-
-            free(p);
-        }
-    }
-
-    
-    write_image_data("image_out.bmp", new_data, width, height);
-
-    free_image_data(data);
-    free(new_data);
+    int width=0, height=0, channel_count=0;
+    read_image_data(source_path, data, width, height, channel_count);
+    printf("dimensions: %d, %d",width,height);
 }
-
-void mirror_total(char* source_path) {
+void scale_crop(char *source_path, int center_x, int center_y, int width, int height){
     unsigned char* data = NULL;
-    int width = 0, height = 0, n = 0;
-
-    if (read_image_data(source_path, &data, &width, &height, &n) == 0) {
-        
-        return;
-    }
-
-    unsigned char* new_data = malloc(width * height * n);
-    if (!new_data) {
-        free_image_data(data);
-        return;
-    }
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            pixelRGB* p = getPixel(data, width, height, n, x, y);
-
-            
-            int new_x = width - 1 - x;
-            int new_y = height - 1 - y;
-
-            setPixel(new_data, width, height, n, new_x, new_y, p);
-
-            free(p);
+    int original_width, original_height, n, x, y;
+    read_image_data(source_path, &data, &original_width, &original_height, &n);
+    int first_x = center_x - width/2;
+    int first_y = center_y - height/2;
+ 
+    if (first_x<0) first_x=0;
+    if (first_y<0) first_y=0;
+    if (first_x + width > original_width) width = original_width - first_x;
+    if (first_y + height > original_height) height = original_height - first_y;
+ 
+   
+    unsigned char* cropped_data = malloc(width*height*n);
+   
+    for ( y=0; y < height;y++){
+        for(x=0; x < width;x++){
+            pixelRGB* current_original_pixel = get_pixel(data, original_width, original_height, n, x + first_x, y + first_y);
+            pixelRGB* current_data_cropped_pixel = get_pixel(cropped_data, width, height, n, x, y);
+            current_data_cropped_pixel->R=current_original_pixel->R;
+            current_data_cropped_pixel->G=current_original_pixel->G;
+            current_data_cropped_pixel->B=current_original_pixel->B;
         }
     }
-
-    write_image_data("image_out.bmp", new_data, width, height);
-
-    free_image_data(data);
-    free(new_data);
+    write_image_data("image_out.bmp",cropped_data,width,height);
 }
