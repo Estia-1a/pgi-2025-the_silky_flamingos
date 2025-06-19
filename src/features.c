@@ -76,3 +76,4 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
         system("start image_out.png");  
    
 }
+}
