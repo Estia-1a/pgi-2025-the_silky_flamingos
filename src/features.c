@@ -44,53 +44,29 @@ void second_line(char *source_path){
     printf("second_line: %d, %d, %d", data[4464], data[4465], data[4466]);
 }
 
-void scale_crop(const char* in, int cx, int cy, int cw, int ch){
-    
-    const char* out ="output.png";
+void scale_crop(char *source_path, int center_x, int center_y, int width, int height){
     unsigned char* data = NULL;
-    int iw = 0, ih = 0, c = 0;
-
-    int success = read_image_data(in, &data, &iw, &ih, &c);
-    if (!success) {
-        printf("Erreur : Impossible de charger l'image '%s'\n", in);
-        return;
-    }
-
-    unsigned char* crop = malloc(cw * ch * c);
-    if (!crop) {
-        printf("Erreur : Échec de l'allocation mémoire pour le crop\n");
-        free_image_data(data);
-        return;
-    }
-
-    int sx = cx - cw / 2;
-    int sy = cy - ch / 2;
-
-    for (int y = 0; y < ch; y++) {
-        for (int x = 0; x < cw; x++) {
-            for (int i = 0; i < c; i++) {
-                int xi = sx + x;
-                int yi = sy + y;
-                int dst_index = (y * cw + x) * c + i;
-
-                if (xi >= 0 && xi < iw && yi >= 0 && yi < ih) {
-                    int src_index = (yi * iw + xi) * c + i;
-                    crop[dst_index] = data[src_index];
-                } else {
-                    crop[dst_index] = 0;
-                }
-            }
+    int original_width, original_height, n, x, y;
+    read_image_data(source_path, &data, &original_width, &original_height, &n);
+    int first_x = center_x - width/2;
+    int first_y = center_y - height/2;
+ 
+    if (first_x<0) first_x=0;
+    if (first_y<0) first_y=0;
+    if (first_x + width > original_width) width = original_width - first_x;
+    if (first_y + height > original_height) height = original_height - first_y;
+ 
+   
+    unsigned char* cropped_data = malloc(width*height*n);
+   
+    for ( y=0; y < height;y++){
+        for(x=0; x < width;x++){
+            pixelRGB* current_original_pixel = get_pixel(data, original_width, original_height, n, x + first_x, y + first_y);
+            pixelRGB* current_data_cropped_pixel = get_pixel(cropped_data, width, height, n, x, y);
+            current_data_cropped_pixel->R=current_original_pixel->R;
+            current_data_cropped_pixel->G=current_original_pixel->G;
+            current_data_cropped_pixel->B=current_original_pixel->B;
         }
     }
-
-    success = write_image_data(out, crop, cw, ch);
-    if (!success) {
-        printf("Erreur : Impossible d'écrire l'image '%s'\n", out);
-    }
-
-    free_image_data(data);
-    free(crop);
-
-    printf("Image d'entrée : %s\n", in);
-    printf("Image de sortie (crop) : %s\n", out);
+    write_image_data("image_out.bmp",cropped_data,width,height);
 }
