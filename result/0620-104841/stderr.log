@@ -1,0 +1,59 @@
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c: In function ‘mirror_vertical’:
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:804:34: warning: passing argument 2 of ‘read_image_data’ from incompatible pointer type [-Wincompatible-pointer-types]
+  804 |     read_image_data(source_path, data, width, height, channel_count);
+      |                                  ^~~~
+      |                                  |
+      |                                  unsigned char *
+In file included from /home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:1:
+/home/runner/work/pgi-2025-the_silky_flamingos/lib/estia_image/include/estia-image.h:13:59: note: expected ‘unsigned char **’ but argument is of type ‘unsigned char *’
+   13 | int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
+      |                                           ~~~~~~~~~~~~~~~~^~~~
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:804:40: warning: passing argument 3 of ‘read_image_data’ makes pointer from integer without a cast [-Wint-conversion]
+  804 |     read_image_data(source_path, data, width, height, channel_count);
+      |                                        ^~~~~
+      |                                        |
+      |                                        int
+/home/runner/work/pgi-2025-the_silky_flamingos/lib/estia_image/include/estia-image.h:13:70: note: expected ‘int *’ but argument is of type ‘int’
+   13 | int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
+      |                                                                 ~~~~~^~~~~
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:804:47: warning: passing argument 4 of ‘read_image_data’ makes pointer from integer without a cast [-Wint-conversion]
+  804 |     read_image_data(source_path, data, width, height, channel_count);
+      |                                               ^~~~~~
+      |                                               |
+      |                                               int
+/home/runner/work/pgi-2025-the_silky_flamingos/lib/estia_image/include/estia-image.h:13:82: note: expected ‘int *’ but argument is of type ‘int’
+   13 | int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
+      |                                                                             ~~~~~^~~~~~
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:804:55: warning: passing argument 5 of ‘read_image_data’ makes pointer from integer without a cast [-Wint-conversion]
+  804 |     read_image_data(source_path, data, width, height, channel_count);
+      |                                                       ^~~~~~~~~~~~~
+      |                                                       |
+      |                                                       int
+/home/runner/work/pgi-2025-the_silky_flamingos/lib/estia_image/include/estia-image.h:13:95: note: expected ‘int *’ but argument is of type ‘int’
+   13 | int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
+      |                                                                                          ~~~~~^~~~~~~~~~~~~
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c: In function ‘scale_crop’:
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:824:48: warning: implicit declaration of function ‘get_pixel’; did you mean ‘getPixel’? [-Wimplicit-function-declaration]
+  824 |             pixelRGB* current_original_pixel = get_pixel(data, original_width, original_height, n, x + first_x, y + first_y);
+      |                                                ^~~~~~~~~
+      |                                                getPixel
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:824:48: warning: initialization of ‘pixelRGB *’ {aka ‘struct _pixelRGB *’} from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:825:52: warning: initialization of ‘pixelRGB *’ {aka ‘struct _pixelRGB *’} from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+  825 |             pixelRGB* current_data_cropped_pixel = get_pixel(cropped_data, width, height, n, x, y);
+      |                                                    ^~~~~~~~~
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c: In function ‘stat_report’:
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:388:9: warning: ignoring return value of ‘fopen’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  388 |         fopen("stat_report.txt", "w");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/pgi-2025-the_silky_flamingos/pgi-2025-the_silky_flamingos/src/features.c:389:9: warning: ignoring return value of ‘freopen’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  389 |         freopen("stat_report.txt", "w", stdout);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/bin/ld: CMakeFiles/freud.dir/src/features.c.o: in function `scale_crop':
+features.c:(.text+0x1e01): undefined reference to `get_pixel'
+/usr/bin/ld: features.c:(.text+0x1e22): undefined reference to `get_pixel'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/freud.dir/build.make:151: freud] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:87: CMakeFiles/freud.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
+
+The process '/usr/local/bin/cmake' failed with exit code 2
