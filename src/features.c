@@ -804,6 +804,7 @@ void mirror_vertical(char* source_path) {
     read_image_data(source_path, data, width, height, channel_count);
     printf("dimensions: %d, %d",width,height);
 }
+
 void scale_crop(char *source_path, int center_x, int center_y, int width, int height){
     unsigned char* data = NULL;
     int original_width, original_height, n, x, y;
@@ -821,8 +822,8 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
    
     for ( y=0; y < height;y++){
         for(x=0; x < width;x++){
-            pixelRGB* current_original_pixel = get_pixel(data, original_width, original_height, n, x + first_x, y + first_y);
-            pixelRGB* current_data_cropped_pixel = get_pixel(cropped_data, width, height, n, x, y);
+            pixelRGB* current_original_pixel = getPixel(data, original_width, original_height, n, x + first_x, y + first_y);
+            pixelRGB* current_data_cropped_pixel = getPixel(cropped_data, width, height, n, x, y);
             current_data_cropped_pixel->R=current_original_pixel->R;
             current_data_cropped_pixel->G=current_original_pixel->G;
             current_data_cropped_pixel->B=current_original_pixel->B;
